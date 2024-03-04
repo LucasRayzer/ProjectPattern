@@ -1,4 +1,4 @@
-package singleton3;
+package Singleton3;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;

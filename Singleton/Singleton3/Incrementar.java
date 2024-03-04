@@ -1,4 +1,4 @@
-package singleton3;
+package Singleton3;
 
 public class Incrementar {
 

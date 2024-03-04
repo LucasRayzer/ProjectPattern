@@ -1,4 +1,4 @@
-package singleton2;
+package Singleton2;
 
 public class CalcImposto {
 	private CalcImposto() {
