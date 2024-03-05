@@ -8,6 +8,8 @@ public class EstacaoMeteorologica {
 	private SensorTemperatura sensorTemp;
 	private SensorUmidade sensorUmidade;
 	
+
+
 	public SensorTemperatura getSensorTemp() {
 		return sensorTemp;
 	}
@@ -56,6 +58,8 @@ public class EstacaoMeteorologica {
 		};
 		t.start();
 	}
+
+	
 	
 	public void notificar() {
 	}

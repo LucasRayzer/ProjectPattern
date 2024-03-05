@@ -11,6 +11,10 @@ public class Suporte {
 	
 	private List<Observador> tecnicos = new ArrayList<>();
 
+	public void anexar(Observador obs) {
+    	this.tecnicos.add(obs);
+    }
+
 	public void enviarMensagem(Cliente cliente, String mensagem) {
 		this.tickets.put(mensagem, cliente);
 
