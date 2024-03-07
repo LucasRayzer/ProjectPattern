@@ -3,7 +3,9 @@ package observer3.dispositivos;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class DispositivoWindow extends JFrame {
+import observer3.estacao.Observador;
+
+public class DispositivoWindow extends JFrame implements Observador{
 
 	private static final long serialVersionUID = 1L;
 
@@ -11,7 +13,9 @@ public class DispositivoWindow extends JFrame {
 	private JLabel jlUmidade;
 
 	public DispositivoWindow() {
-	
+		
+		
+		
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -25,5 +29,16 @@ public class DispositivoWindow extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
+
+
+	@Override
+	public void atualizar(double temp, double umid) {
+		jlTemp.setText("Temperatura"+temp);
+		jlUmidade.setText("Umidade"+umid);
+	}
+
+	
+
+	
 
 }

@@ -1,5 +1,8 @@
 package observer3.estacao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import observer3.sensores.SensorTemperatura;
 import observer3.sensores.SensorUmidade;
 
@@ -7,7 +10,6 @@ public class EstacaoMeteorologica {
 	
 	private SensorTemperatura sensorTemp;
 	private SensorUmidade sensorUmidade;
-	
 
 
 	public SensorTemperatura getSensorTemp() {
@@ -46,22 +48,34 @@ public class EstacaoMeteorologica {
 					temp = sensorTemp.getMedicao();
 					umid = sensorUmidade.getMedicao();
 					
-					notificar();
+					notificar(temp, umid);
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					
 				}
 			}
 			
 		};
 		t.start();
 	}
+	//inicializando o observer
+	private List<Observador> obs = new ArrayList<>();
+	
+	//criar metodo de anexar
+	public void anexar (Observador obs){
+        this.obs.add(obs);
+    }
 
-	
-	
-	public void notificar() {
+	public void notificar(double temp, double umid) {
+		for (Observador observador : obs) {
+			observador.atualizar(temp, umid);
+			
+		}
 	}
+	
+
 
 }
