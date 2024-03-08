@@ -15,9 +15,11 @@ public class DefesaCivil {
 		estacao.setSensorUmidade(new SensorUmidade());
 		
 		DispositivoConsole console = new DispositivoConsole();
-		
+		estacao.anexar(console);
 		DispositivoWindow window = new DispositivoWindow();
-	
+		estacao.anexar(window);
+
+
 		estacao.ligar();
 	}
 	
