@@ -9,12 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
+import javax.swing.JLabel;
 
 /**
  *
  * @author  adilsonv
  */
-public class ControleDeposito extends javax.swing.JFrame {
+public class ControleDeposito extends javax.swing.JFrame  implements Observer{
     
 	private static final long serialVersionUID = 1L;
 
@@ -40,7 +41,9 @@ public class ControleDeposito extends javax.swing.JFrame {
         
     }
     private DepositoListModel depositoListModel;
-    
+
+    private Deposito dep = new Deposito(0, 0);
+
     public ControleDeposito() {
         initComponents();
         setLocationRelativeTo(null);
@@ -84,9 +87,12 @@ public class ControleDeposito extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 // criar deposito
+                dep.setQtdadeCritica(Integer.parseInt(jtfQtdadeCritica.getText()));
+                dep.setQtdadeMax(Integer.parseInt(jtfQtdadeMax.getText()));
+                
             }
         });
-
+        
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -124,19 +130,25 @@ public class ControleDeposito extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Fluxo"));
 
-        jLabel3.setText("Qtdade :");
+        jLabel3.setText("Qtdade :" );
 
         jButton2.setText("Add");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 // add a qtdade no deposito
+                try {
+                    dep.add(Integer.parseInt(jtfQtdade.getText()));
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 
         jButton3.setText("Retirar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                // retirar a qtdade do deposito
+                dep.retirar(Integer.parseInt(jtfQtdade.getText()));
             }
         });
 
@@ -172,7 +184,7 @@ public class ControleDeposito extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Log"));
 
-        jLabel4.setText("Qtdade atual :");
+        jLabel4.setText("Qtdade atual :" );
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("0");
@@ -234,6 +246,7 @@ public class ControleDeposito extends javax.swing.JFrame {
         );
 
         pack();
+        dep.anexar(this);
     }
 
     public static void main(String args[]) {
@@ -261,5 +274,20 @@ public class ControleDeposito extends javax.swing.JFrame {
     private javax.swing.JTextField jtfQtdadeMax;
     private javax.swing.JTextField jtfQtdadeCritica;
     private javax.swing.JTextField jtfQtdade;
+
+    @Override
+    public void consAdd(int qtdade) {
+        depositoListModel.addTexto("Adicionado " + qtdade);
+    }
+
+    @Override
+    public void consRetirar(int qtdade) {
+       depositoListModel.addTexto("Retirado" + qtdade);;
+    }
+
+    @Override
+    public void qtdadeAtual(int qtdadeAtual) {
+      jLabel5.setText(Integer.toString(qtdadeAtual));
+    }
     
 }
