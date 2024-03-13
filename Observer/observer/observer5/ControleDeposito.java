@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.AbstractListModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,7 +43,7 @@ public class ControleDeposito extends javax.swing.JFrame  implements Observer{
     }
     private DepositoListModel depositoListModel;
 
-    private Deposito dep = new Deposito(0, 0);
+    private Deposito dep;
 
     public ControleDeposito() {
         initComponents();
@@ -87,9 +88,8 @@ public class ControleDeposito extends javax.swing.JFrame  implements Observer{
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 // criar deposito
-                dep.setQtdadeCritica(Integer.parseInt(jtfQtdadeCritica.getText()));
-                dep.setQtdadeMax(Integer.parseInt(jtfQtdadeMax.getText()));
-                
+                dep = new Deposito(Integer.parseInt(jtfQtdadeCritica.getText()), Integer.parseInt(jtfQtdadeMax.getText()));
+               dep.anexar(ControleDeposito.this);
             }
         });
         
@@ -140,7 +140,7 @@ public class ControleDeposito extends javax.swing.JFrame  implements Observer{
                     dep.add(Integer.parseInt(jtfQtdade.getText()));
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, e.getMessage());
                 }
             }
         });
@@ -187,7 +187,7 @@ public class ControleDeposito extends javax.swing.JFrame  implements Observer{
         jLabel4.setText("Qtdade atual :" );
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("0");
+        jLabel5.setText(".");
 
         jScrollPane1.setViewportView(jList1);
 
@@ -246,7 +246,6 @@ public class ControleDeposito extends javax.swing.JFrame  implements Observer{
         );
 
         pack();
-        dep.anexar(this);
     }
 
     public static void main(String args[]) {

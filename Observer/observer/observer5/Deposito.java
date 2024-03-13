@@ -36,7 +36,9 @@ public class Deposito {
             qtdadeAtual= qtdadeMax;
             throw new Exception("Error: Tentativa de amrazenar mais que o permitido");
         }
+       
         this.qtdadeAtual = qtdade;
+        notificarAdd(qtdade);
     }
     
     public int retirar(int qtdade){
@@ -46,6 +48,7 @@ public class Deposito {
             return temp=qtdadeAtual;
         }
         qtdadeAtual= qtdadeAtual-qtdade;
+        notificarRet(temp);
         return temp;
     }
 
@@ -58,11 +61,17 @@ public class Deposito {
     public void desanexar(Observer obs) {
     	this.observer5.remove(obs);
     }
-    public void notificar(int add, int retirar, int qtdadeAtual) {
+    public void notificarAdd(int add) {
 		for (Observer observador : observer5) {
 			observador.consAdd(add);
+            observador.qtdadeAtual(getQtdadeAtual());
+			
+		}
+	}
+    public void notificarRet(int retirar) {
+		for (Observer observador : observer5) {
 			observador.consRetirar(retirar);
-            observador.qtdadeAtual(qtdadeAtual);
+            observador.qtdadeAtual(getQtdadeAtual());
 		}
 	}
 
